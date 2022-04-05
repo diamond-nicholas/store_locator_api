@@ -1,0 +1,32 @@
+const express = require('express');
+const app = express();
+require('dotenv').config();
+const cors = require('cors');
+const connectDB = require('./db/connect');
+require('express-async-errors'); //async errors
+
+app.use(express.json());
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+const PORT = process.env.PORT || 8000;
+
+//api endpoints
+app.get('/', (req, res) => {
+  res.status(200).send('app is up and running');
+});
+
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(PORT, () => {
+      console.log(`app is listening on port ${PORT}....`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
