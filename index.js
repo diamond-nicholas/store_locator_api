@@ -5,6 +5,8 @@ const cors = require('cors');
 const connectDB = require('./db/connect');
 require('express-async-errors'); //async errors
 
+const store = require('./routes/store');
+
 app.use(express.json());
 app.use(
   cors({
@@ -17,6 +19,8 @@ const PORT = process.env.PORT || 8000;
 app.get('/', (req, res) => {
   res.status(200).send('app is up and running');
 });
+
+app.use('/api/v1/store', store);
 
 const start = async () => {
   try {
