@@ -4,6 +4,7 @@ require('dotenv').config();
 const cors = require('cors');
 const connectDB = require('./db/connect');
 require('express-async-errors'); //async errors
+const path = require('path');
 
 const store = require('./routes/store');
 
@@ -13,6 +14,9 @@ app.use(
     origin: '*',
   })
 );
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 const PORT = process.env.PORT || 8000;
 
 //api endpoints
