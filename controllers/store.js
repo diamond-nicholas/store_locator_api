@@ -32,7 +32,24 @@ const addStore = async (req, res) => {
   }
 };
 
+const deleteStore = async (req, res) => {
+  try {
+    const store = await Store.deleteMany({});
+    if (!store) {
+      return res
+        .status(400)
+        .json({ message: 'there is currently no store to del' });
+    }
+    return res
+      .status(200)
+      .json({ message: 'All stores have been successfully deleted' });
+  } catch (error) {
+    res.status(500).json({ error: 'server error' });
+  }
+};
+
 module.exports = {
   addStore,
   getStore,
+  deleteStore,
 };
